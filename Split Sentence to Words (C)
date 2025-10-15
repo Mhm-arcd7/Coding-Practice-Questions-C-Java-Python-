@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char s[1000];  // fixed-size array (enough for most inputs)
+
+    // Read full line including spaces
+    scanf("%[^\n]", s);
+
+    // Split and print each word
+    char *word = strtok(s, " ");  // first token
+    while (word != NULL) {
+        printf("%s\n", word);
+        word = strtok(NULL, " "); // next token
+    }
+
+    return 0;
+}
