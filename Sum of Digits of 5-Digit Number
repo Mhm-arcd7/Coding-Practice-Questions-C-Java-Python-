@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+int main() {
+    int n;
+    scanf("%d", &n);
+    
+    // Check if number is a 5-digit number
+    if (n < 10000 || n > 99999) {
+        printf("Error: Please enter a 5-digit number\n");
+        return 1;
+    }
+
+    // Extract digits
+    int f = n / 10000;           // First digit
+    int s = (n / 1000) % 10;     // Second digit
+    int t = (n / 100) % 10;      // Third digit
+    int fo = (n / 10) % 10;      // Fourth digit
+    int fif = n % 10;            // Fifth digit
+
+    // Sum of digits
+    int sum = f + s + t + fo + fif;
+
+    printf("%d",sum);
+    return 0;
+}
