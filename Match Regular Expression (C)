@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+bool matchHere(char s[], char p[], int i, int j) {
+    // If pattern finished → string must also finish
+    if (p[j] == '\0')
+        return s[i] == '\0';
+
+    // Check if characters match (normal or '.')
+    bool firstMatch = (s[i] != '\0' &&
+                      (s[i] == p[j] || p[j] == '.'));
+
+    // If next pattern char is '*'
+    if (p[j + 1] == '*') {
+        // Option 1: skip "x*"
+        // Option 2: use '*' to match more chars
+        return matchHere(s, p, i, j + 2) ||
+               (firstMatch && matchHere(s, p, i + 1, j));
+    }
+
+    // Normal matching
+    if (firstMatch)
+        return matchHere(s, p, i + 1, j + 1);
+
+    return false;
+}
+
+bool isMatch(char s[], char p[]) {
+    return matchHere(s, p, 0, 0);
+}
+
+int main() {
+    char s1[] = "aa";
+    char p1[] = "a";
+    printf("%d\n", isMatch(s1, p1));   // 0 (false)
+
+    char s2[] = "aa";
+    char p2[] = "a*";
+    printf("%d\n", isMatch(s2, p2));   // 1 (true)
+
+    char s3[] = "ab";
+    char p3[] = ".*";
+    printf("%d\n", isMatch(s3, p3));   // 1 (true)
+
+    char s4[] = "aab";
+    char p4[] = "c*a*b";
+    printf("%d\n", isMatch(s4, p4));   // 1 (true)
+
+    return 0;
+}
+
