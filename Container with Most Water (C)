@@ -1,0 +1,44 @@
+#include <stdio.h>
+
+int maxArea(int* height, int heightSize) {
+    int left = 0;
+    int right = heightSize - 1;
+    int max = 0;
+
+    while (left < right) {
+        int h = height[left] < height[right] ? height[left] : height[right];
+        int width = right - left;
+        int area = h * width;
+
+        if (area > max)
+            max = area;
+
+        // Move the pointer at the smaller height
+        if (height[left] < height[right])
+            left++;
+        else
+            right--;
+    }
+
+    return max;
+}
+
+int main() {
+    int n;
+
+    printf("Enter number of heights: ");
+    scanf("%d", &n);
+
+    int height[n];
+
+    printf("Enter the heights: ");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &height[i]);
+    }
+
+    int result = maxArea(height, n);
+
+    printf("Maximum water = %d\n", result);
+
+    return 0;
+}
