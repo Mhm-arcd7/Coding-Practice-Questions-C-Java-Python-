@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+
+bool isValid(char s[]) {
+    char stack[10000];
+    int top = -1;
+
+    for (int i = 0; s[i] != '\0'; i++) {
+        char c = s[i];
+
+        // Push opening brackets
+        if (c == '(' || c == '{' || c == '[') {
+            stack[++top] = c;
+        }
+        // Check closing brackets
+        else {
+            if (top == -1) 
+                return false; // No matching open bracket
+
+            char pop = stack[top--]; // Pop
+
+            // Check if pair matches
+            if ((c == ')' && pop != '(') ||
+                (c == '}' && pop != '{') ||
+                (c == ']' && pop != '[')) {
+                return false;
+            }
+        }
+    }
+
+    return top == -1; // Stack must be empty
+}
+
+int main() {
+    char s[100];
+
+    printf("Enter parentheses: ");
+    scanf("%s", s);
+
+    if (isValid(s))
+        printf("Valid\n");
+    else
+        printf("Invalid\n");
+
+    return 0;
+}
+
